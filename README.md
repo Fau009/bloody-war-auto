@@ -1,63 +1,106 @@
-# Bloody War Auto — v0.1
+# ⚔ Bloody War Auto — Chrome
 
-## Como instalar
-1. Abra `chrome://extensions`
-2. Ative o "Modo do desenvolvedor" (canto superior direito)
-3. Clique em "Carregar sem compactação"
-4. Selecione esta pasta (a que tem o `manifest.json`)
-5. Abra `https://www.thebloodywar.com/` em uma aba e faça login
-6. Clique no ícone da extensão pra abrir o popup, ligue o toggle mestre,
-   ative PDB e/ou PDL, e clique em "Editar alvo/filtro" pra configurar
+Extensão para **Google Chrome** que automatiza o jogo [The Bloody War](https://www.thebloodywar.com/) — um RPG de combate por navegador.
 
-## O que já funciona
-- Leitura em tempo real dos slots PDB/PDL (contagem e contador de recarga)
-- Loop de checagem a cada 15s, respeitando modo Contínuo ou Agendado
-  (com janela de horário independente por sistema)
-- **Desligamento automático por tempo**: ao ligar a automação, marque
-  "Desativar automaticamente?" e defina os minutos — a extensão desliga
-  sozinha mesmo com o popup fechado (usa `chrome.alarms`, não um timer
-  da página). O contador regressivo aparece no popup.
-- Fluxo de ataque a Criaturas: navega até Mapa Mundo → acha a região pelo
-  nome → entra → acha a criatura pelo nome → clica Atacar → volta ao mapa
-- Fluxo de ataque a Batalhas: navega até Batalhas → aplica o filtro
-  (campo + valor de busca) → clica Filtrar → ataca o primeiro resultado
-- Log das últimas 30 ações, visível no popup
+> Versão Firefox disponível em: [bloody-war-auto-firefox](https://github.com/Fau009/bloody-war-auto-firefox)
 
-## Pontos a testar/confirmar antes de usar de verdade
+---
 
-1. **Valor exato do filtro "Tipo de Oponente"** — não capturamos o HTML
-   com esse filtro preenchido. Abra o jogo, selecione "Tipo de Oponente"
-   no dropdown, digite algo no campo de busca e veja o que retorna
-   resultados (`Bot`, `Bots`, `Real`, `Player`, etc.) — ajuste em
-   Configurações → Batalhas → Valor buscado.
+## Objetivo
 
-2. **Navegação em páginas de Mapa/Batalha fora da sidebar padrão** —
-   quando o layout usa o botão "Menu" (em vez da sidebar sempre visível),
-   o código tenta clicar nesse botão e depois no item do menu, mas não
-   temos o HTML do menu já aberto pra confirmar o seletor certo. Se a
-   navegação falhar, abra o console (F12) na aba do jogo e veja os logs
-   `[BloodyWarAuto]` pra saber onde travou.
+Automatizar as tarefas repetitivas do jogo para que o personagem continue evoluindo mesmo sem o jogador presente:
 
-3. **Slots máximos e tempo de recarga** — os valores padrão em
-   `shared.js` (`DEFAULT_CONFIG`) são baseados no que vimos nos seus
-   prints. Ajuste em Configurações se sua conta tiver valores diferentes.
+- Atacar criaturas e outros jogadores enquanto houver slots disponíveis
+- Trabalhar nos horários programados para acumular gold
+- Treinar atributos automaticamente com o gold disponível
+- Manter a vida alta comprando e usando poções quando necessário
+- Registrar tudo em um painel de relatórios com gráficos e histórico de sessões
 
-4. **Seletores dependem da versão atual do jogo** (classes geradas por
-   uma lib chamada HeroUI/NextUI, com hashes que podem mudar em updates
-   do jogo). Se algo parar de funcionar, o primeiro passo é comparar o
-   HTML atual da página com os seletores em `content.js`.
+---
 
-5. **Alarme de desligamento automático e reinício do navegador** — o
-   `chrome.alarms` normalmente sobrevive a fechar/abrir o Chrome, mas
-   isso não é 100% garantido em todo sistema operacional. Se o PC for
-   reiniciado com o timer ativo, vale conferir o popup ao voltar.
+## Instalação no Chrome
+
+1. Baixe ou clone este repositório
+2. Abra o Chrome e acesse `chrome://extensions`
+3. Ative o **"Modo do desenvolvedor"** (canto superior direito)
+4. Clique em **"Carregar sem compactação"**
+5. Selecione a pasta deste projeto (a que contém o `manifest.json`)
+6. O ícone ⚔ aparecerá na barra de extensões
+
+> Para fixar o ícone na barra, clique no 🧩 e depois no 📌 ao lado da extensão.
+
+---
+
+## Como usar
+
+### 1. Abrir o painel
+Clique no ícone ⚔ da extensão. O popup mostra o status do personagem, slots e ações recentes.
+
+### 2. Ligar o sistema
+Clique no interruptor no topo do popup. Quando estiver verde, o bot está ativo e rodando a cada 15 segundos.
+
+### 3. Configurar os alvos
+Cada seção do popup tem um link **"Editar →"** que abre a página de configurações diretamente na aba certa:
+
+| Seção | O que configura |
+|---|---|
+| **Criaturas** | Região do mapa e nome exato da criatura alvo |
+| **Batalhas** | Filtros de busca (tipo de oponente ou nível) em cascata |
+| **Trabalho** | Duração do turno e horários de agendamento |
+| **Treinamento** | Atributos a treinar e reserva mínima de gold |
+| **Saúde** | Poção a comprar, limite de HP e reserva de gold |
+
+### 4. Atalho de configuração
+O ícone **⚙** no canto superior direito do popup abre as configurações completas.
+
+### 5. Desligamento automático
+Marque **"Desativar automaticamente?"** e defina os minutos — a extensão se desliga sozinha mesmo com o popup fechado.
+
+---
+
+## Painel de Relatórios
+
+Acesse pela aba **📊 Relatórios** nas configurações. Disponível após acumular histórico de uso.
+
+### KPIs
+Total de ações, taxa de vitória, batalhas vs criaturas, gold ganho, gold gasto e gold líquido.
+
+### Gráficos
+- Vitórias vs Derrotas (rosca)
+- PDL vs PDB (rosca)
+- Distribuição por tipo de atividade (rosca)
+- Ações por hora do dia (barras)
+- Evolução do gold ao longo do tempo (linha)
+- Gold líquido por hora do dia (barras)
+- Ações por dia da semana (barras)
+- Taxa de vitória PDL vs PDB (barras)
+- Gold médio por combate (barras)
+
+### Histórico de Sessões
+Cada sessão registra o período de ativação até desativação do sistema, com:
+- Horário de início e fim
+- Duração total
+- Breakdown de atividades: batalhas, criaturas, treinos, poções, trabalhos
+- Vitórias, derrotas e gold líquido da sessão
+
+---
 
 ## Estrutura dos arquivos
-- `manifest.json` — configuração da extensão
-- `shared.js` — config padrão + helpers de storage (usado por popup,
-  options, background e content)
-- `content.js` — roda dentro do jogo: lê slots, decide quando atacar,
-  executa os cliques
-- `background.js` — só cria a config padrão na instalação
-- `popup.html/js/css` — painel rápido (liga/desliga, status, log)
-- `options.html/js/css` — tela de configuração dos alvos/filtros
+
+| Arquivo | Função |
+|---|---|
+| `manifest.json` | Configuração da extensão (Manifest V3, Chrome) |
+| `shared.js` | Config padrão e helpers de storage compartilhados |
+| `content.js` | Roda dentro do jogo — lê slots e executa os cliques |
+| `background.js` | Service Worker — gerencia alarmes de auto-disable |
+| `popup.html/js/css` | Painel rápido (liga/desliga, status, log recente) |
+| `options.html/js/css` | Configurações completas e painel de relatórios |
+| `reports.js` | Motor de gráficos canvas e análise de dados |
+
+---
+
+## Observações
+
+- O histórico fica salvo localmente no navegador (não é enviado a nenhum servidor)
+- Se desinstalar a extensão ou limpar os dados do navegador, o histórico é perdido
+- Os seletores do `content.js` dependem da versão atual do jogo — se algo parar de funcionar, compare o HTML do jogo com os seletores e abra uma issue
