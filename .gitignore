@@ -1,0 +1,11 @@
+# Subpasta da versão Firefox (repo separado)
+bloody-war-auto-mozila/
+
+# Arquivos de build/distribuição
+*.zip
+*.crx
+
+# Sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
