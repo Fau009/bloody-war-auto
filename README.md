@@ -18,16 +18,33 @@ Automatizar as tarefas repetitivas do jogo para que o personagem continue evolui
 
 ---
 
+## Como baixar a extensão
+
+**Você não precisa saber programar para instalar. Siga os passos abaixo:**
+
+### Passo 1 — Baixar os arquivos
+
+1. Nesta página do GitHub, clique no botão verde **`<> Code`** (canto superior direito)
+2. No menu que abrir, clique em **`Download ZIP`**
+3. Um arquivo `.zip` será baixado para o seu computador
+4. **Extraia o ZIP**: clique com o botão direito no arquivo → **"Extrair tudo"** → escolha uma pasta e confirme
+
+> Guarde essa pasta em um lugar fixo (ex: `Documentos`). O Chrome precisa que ela continue existindo para a extensão funcionar.
+
+---
+
 ## Instalação no Chrome
 
-1. Baixe ou clone este repositório
-2. Abra o Chrome e acesse `chrome://extensions`
-3. Ative o **"Modo do desenvolvedor"** (canto superior direito)
-4. Clique em **"Carregar sem compactação"**
-5. Selecione a pasta deste projeto (a que contém o `manifest.json`)
-6. O ícone ⚔ aparecerá na barra de extensões
+Após baixar e extrair a pasta (passo acima):
 
-> Para fixar o ícone na barra, clique no 🧩 e depois no 📌 ao lado da extensão.
+1. Abra o Google Chrome
+2. Na barra de endereços, digite `chrome://extensions` e pressione Enter
+3. No canto superior direito, ative o **"Modo do desenvolvedor"** (botão azul)
+4. Clique no botão **"Carregar sem compactação"** que vai aparecer
+5. Navegue até a pasta extraída (a que contém o arquivo `manifest.json`) e selecione ela
+6. O ícone ⚔ vai aparecer na barra de extensões do Chrome
+
+> Se não ver o ícone, clique no 🧩 (peça de quebra-cabeça) na barra do Chrome e depois no 📌 ao lado de **Bloody War Auto** para fixar.
 
 ---
 
